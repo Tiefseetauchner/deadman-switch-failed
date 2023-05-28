@@ -2,7 +2,7 @@ namespace DeadmanSwitchFailed.Authentication.Web.Service;
 
 public static class Program
 {
-  private static readonly string s_corsPolicy = "_allowAllOrigins";
+  private const string c_corsPolicy = "_allowAllOrigins";
 
   private static void Main(string[] args)
   {
@@ -31,9 +31,9 @@ public static class Program
 
   private static void AllowAllOrigins(this IServiceCollection services) =>
     services.AddCors(
-      options => options.AddPolicy(s_corsPolicy,
+      options => options.AddPolicy(c_corsPolicy,
         policyBuilder => policyBuilder.WithOrigins("*")));
 
   private static void AllowAllOrigins(this IApplicationBuilder app) =>
-    app.UseCors(s_corsPolicy);
+    app.UseCors(c_corsPolicy);
 }
