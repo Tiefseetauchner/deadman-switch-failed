@@ -1,3 +1,3 @@
 export default {
-    "baseUrl": "http://dmsf_mvp.test:5072/"
-}
+    "baseUrl": "http://dmsf_mvp.test:5200/"
+};

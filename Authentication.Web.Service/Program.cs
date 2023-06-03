@@ -1,3 +1,6 @@
+using System.Data;
+using MySqlConnector;
+
 namespace DeadmanSwitchFailed.Authentication.Web.Service;
 
 public static class Program
@@ -13,6 +16,8 @@ public static class Program
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+    builder.Services.AddScoped<IDbConnection, MySqlConnection>(serviceProvider =>
+      new MySqlConnection(builder.Configuration.GetConnectionString("Authentication")));
 
     var app = builder.Build();
 

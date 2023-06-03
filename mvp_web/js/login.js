@@ -3,9 +3,9 @@ import constants from "./constants.js";
 loadData();
 
 function loadData() {
-    let loginId = getLoginId();
+    let loginCode = getLoginId();
 
-    fetch(new URL(`/AuthenticationToken/${loginId}`, constants.baseUrl))
+    fetch(new URL(`/Login/${loginCode}`, constants.baseUrl))
         .then((response) =>
             response.json().then(setContent))
         .catch((response) => displayRequestFailed(response));
