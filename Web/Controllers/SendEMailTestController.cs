@@ -1,14 +1,13 @@
 using System;
 using System.Data;
-using System.Data.Common;
 using System.Threading.Tasks;
 using Dapper.Contrib.Extensions;
-using Domain.Models;
+using DeadManSwitchFailed.Common.Domain.Models;
+using DeadManSwitchFailed.Common.ServiceBus.Events;
 using Microsoft.AspNetCore.Mvc;
 using Rebus.Bus;
-using ServiceBus.Events;
 
-namespace Web.Controllers;
+namespace DeadManSwitchFailed.Web.Controllers;
 
 [Route("email")]
 public class SendEMailTestController : Controller
@@ -24,15 +23,15 @@ public class SendEMailTestController : Controller
     _connection = connection;
   }
 
-  [HttpGet("{id:guid}")]
+  [HttpPost("{id:guid}")]
   public async Task Send(Guid id) =>
     await _bus.Publish(new SendEMailEvent { Id = id });
 
   [HttpGet]
   public IActionResult GetAll() =>
     Ok(_connection.GetAll<EMailEvent>());
-
-  [HttpPost("{id:guid}")]
-  public void Create(Guid id) =>
-    _connection.Insert(new EMailEvent());
+  //
+  // [HttpPost("{id:guid}")]
+  // public void Create(Guid id) =>
+  //   _connection.Insert(new EMailEvent());
 }

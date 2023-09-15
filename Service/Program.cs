@@ -1,9 +1,11 @@
 using System.Data;
+using DeadManSwitchFailed.Common.ServiceBus.Events;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using MySql.Data.MySqlClient;
 using Rebus.Config;
-using Rebus.Persistence.InMem;
 using Rebus.Retry.Simple;
-using Service.Handlers;
 
 var hostBuilder = Host.CreateDefaultBuilder(args);
 
@@ -14,16 +16,16 @@ var configuration = new ConfigurationBuilder()
 hostBuilder.ConfigureServices(services =>
 {
   services.AddRebus(configure =>
-    configure
-      .Options(options =>
-      {
-        options.SetBusName("DMSF ServiceBus");
-        options.SimpleRetryStrategy();
-      })
-      .Subscriptions(_ => _.StoreInMySql(configuration.GetSection("connectionStrings")["BusDatabase"], "DMSFBusSubscriptions"))
-      .Transport(_ => _.UseMySql(configuration.GetSection("connectionStrings")["BusDatabase"], "DMSFBus", "DMSF_Service"))
-      .Logging(_ => _.ColoredConsole()));
-  services.AddRebusHandler<EMailSentEventHandler>();
+      configure
+        .Options(options =>
+        {
+          options.SetBusName("DMSF ServiceBus");
+          options.SimpleRetryStrategy();
+        })
+        .Subscriptions(_ => _.StoreInMySql(configuration.GetSection("connectionStrings")["BusDatabase"], "DMSF_Service", true))
+        .Transport(_ => _.UseMySql(configuration.GetSection("connectionStrings")["BusDatabase"], "DMSFBus", "DMSF_Service"))
+        .Logging(_ => _.ColoredConsole()),
+    onCreated: async bus => { await bus.Subscribe<SendEMailEvent>(); });
 
   services.AddSingleton<IDbConnection>(_ => new MySqlConnection(configuration.GetSection("connectionStrings")["ServiceDatabase"]));
   services.AutoRegisterHandlersFromAssemblyOf<Program>();

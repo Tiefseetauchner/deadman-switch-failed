@@ -1,6 +1,4 @@
-using System.Net.Mail;
-
-namespace Domain.Models;
+namespace DeadManSwitchFailed.Common.Domain.Models;
 
 public class EMailEvent : EventBase
 {

@@ -1,4 +1,4 @@
-namespace Domain.Models;
+namespace DeadManSwitchFailed.Common.Domain.Models;
 
 /// <summary>
 /// A user with a vault

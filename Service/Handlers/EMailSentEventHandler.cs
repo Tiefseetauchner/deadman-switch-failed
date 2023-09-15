@@ -1,21 +1,25 @@
+using System;
+using System.Configuration;
 using System.Data;
 using System.Net;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using Dapper.Contrib.Extensions;
-using Domain.Models;
+using DeadManSwitchFailed.Common.Domain.Models;
+using DeadManSwitchFailed.Common.ServiceBus.Events;
 using Rebus.Bus;
 using Rebus.Handlers;
-using ServiceBus.Events;
-using ConfigurationManager = System.Configuration.ConfigurationManager;
 
-namespace Service.Handlers;
+namespace DeadManSwitchFailed.Service.Handlers;
 
 public class EMailSentEventHandler : IHandleMessages<SendEMailEvent>
 {
   private readonly IBus _bus;
   private readonly IDbConnection _connection;
 
-  public EMailSentEventHandler(IBus bus, IDbConnection connection)
+  public EMailSentEventHandler(
+    IBus bus,
+    IDbConnection connection)
   {
     _bus = bus;
     _connection = connection;
@@ -23,7 +27,7 @@ public class EMailSentEventHandler : IHandleMessages<SendEMailEvent>
 
   public async Task Handle(SendEMailEvent message)
   {
-    Console.WriteLine("asdf");
+    Console.WriteLine(message.Id);
 
     var emailData = _connection.Get<EMailEvent>(message.Id);
 

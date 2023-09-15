@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run All Applications" type="CompoundRunConfigurationType">
+    <toRun name="Service" type="LaunchSettings" />
+    <toRun name="Web: http" type="LaunchSettings" />
+    <method v="2" />
+  </configuration>
+</component>

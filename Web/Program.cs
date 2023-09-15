@@ -5,9 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MySql.Data.MySqlClient;
 using Rebus.Config;
-using Rebus.Persistence.InMem;
 using Rebus.Retry.Simple;
-using Rebus.Routing.TypeBased;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,9 +25,9 @@ services.AddRebus(configure =>
       options.SetBusName("DMSF ServiceBus");
       options.SimpleRetryStrategy();
     })
-    .Subscriptions(_ => _.StoreInMySql(configuration.GetSection("connectionStrings")["BusDatabase"], "DMSFBusSubscriptions"))
+    .Subscriptions(_ => _.StoreInMySql(configuration.GetSection("connectionStrings")["BusDatabase"], "DMSF_Service", true))
     .Transport(_ => _.UseMySql(configuration.GetSection("connectionStrings")["BusDatabase"], "DMSFBus", "DMSF_Service"))
-    .Logging(_ => _.Console()));
+    .Logging(_ => _.ColoredConsole()));
 
 services.AddSingleton<IDbConnection>(_ => new MySqlConnection(configuration.GetSection("connectionStrings")["WebDatabase"]));
 services.AutoRegisterHandlersFromAssemblyOf<Program>();

@@ -1,4 +1,4 @@
-namespace Domain.Models;
+namespace DeadManSwitchFailed.Common.Domain.Models;
 
 /// <summary>
 /// The token used to authenticate an access to a vault

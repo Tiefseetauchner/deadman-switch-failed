@@ -1,6 +1,7 @@
+using System;
 using Dapper.Contrib.Extensions;
 
-namespace Domain.Models;
+namespace DeadManSwitchFailed.Common.Domain.Models;
 
 /// <summary>
 /// Base Class for all database entities

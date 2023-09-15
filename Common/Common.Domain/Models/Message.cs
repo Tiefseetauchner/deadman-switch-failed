@@ -1,4 +1,4 @@
-namespace Domain.Models;
+namespace DeadManSwitchFailed.Common.Domain.Models;
 
 /// <summary>
 /// Message to be displayed after unlocking vault
