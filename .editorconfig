@@ -13,4 +13,4 @@ tab_width = 4
 
 #### Diagnostic configuration ####
 
-dotnet_diagnostic.CA1062.severity = warning
+dotnet_diagnostic.CA1062.severity = error

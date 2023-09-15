@@ -5,7 +5,7 @@
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <OutputType>WinExe</OutputType>
         <RootNamespace>DeadManSwitchFailed.Web</RootNamespace>
-        <WarningsAsErrors>True</WarningsAsErrors>
+        <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     </PropertyGroup>
 
     <ItemGroup>
@@ -15,18 +15,17 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Common\Common.Domain\Common.Domain.csproj"/>
-        <ProjectReference Include="..\Common\Common.ServiceBus\Common.ServiceBus.csproj"/>
-        <ProjectReference Include="..\Domain\Domain.csproj"/>
-        <ProjectReference Include="..\ServiceBus\ServiceBus.csproj"/>
+        <ProjectReference Include="..\Common\Common.ArgumentChecks\Common.ArgumentChecks.csproj" />
+        <ProjectReference Include="..\Common\Common.Domain\Common.Domain.csproj" />
+        <ProjectReference Include="..\Common\Common.ServiceBus\Common.ServiceBus.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Dapper.Contrib" Version="2.0.78"/>
-        <PackageReference Include="Rebus.MySql" Version="2.1.0"/>
-        <PackageReference Include="Rebus.ServiceProvider" Version="9.1.0"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
-        <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0"/>
+        <PackageReference Include="Dapper.Contrib" Version="2.0.78" />
+        <PackageReference Include="Rebus.MySql" Version="2.1.0" />
+        <PackageReference Include="Rebus.ServiceProvider" Version="9.1.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+        <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
     </ItemGroup>
 
 </Project>

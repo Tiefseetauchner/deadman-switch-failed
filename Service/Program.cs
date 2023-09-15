@@ -1,9 +1,11 @@
 using System.Data;
 using DeadManSwitchFailed.Common.ServiceBus.Events;
+using DeadManSwitchFailed.Service.Handlers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MySql.Data.MySqlClient;
+using Rebus.Bus;
 using Rebus.Config;
 using Rebus.Retry.Simple;
 
@@ -32,5 +34,9 @@ hostBuilder.ConfigureServices(services =>
 });
 
 var host = hostBuilder.Build();
+
+var xyz = new EMailSentEventHandler(host.Services.GetService<IBus>(), host.Services.GetService<IDbConnection>());
+
+await xyz.Handle(null);
 
 host.Run();

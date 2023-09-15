@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Threading.Tasks;
 using Dapper.Contrib.Extensions;
+using DeadManSwitchFailed.Common.ArgumentChecks;
 using DeadManSwitchFailed.Common.Domain.Models;
 using DeadManSwitchFailed.Common.ServiceBus.Events;
 using Microsoft.AspNetCore.Mvc;
@@ -19,8 +20,8 @@ public class SendEMailTestController : Controller
     IBus bus,
     IDbConnection connection)
   {
-    _bus = bus;
-    _connection = connection;
+    _bus = bus.CheckNotNull();
+    _connection = connection.CheckNotNull();
   }
 
   [HttpPost("{id:guid}")]

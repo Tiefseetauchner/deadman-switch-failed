@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using Dapper.Contrib.Extensions;
+using DeadManSwitchFailed.Common.ArgumentChecks;
 using DeadManSwitchFailed.Common.Domain.Models;
 using DeadManSwitchFailed.Common.ServiceBus.Events;
 using Rebus.Bus;
@@ -21,12 +22,14 @@ public class EMailSentEventHandler : IHandleMessages<SendEMailEvent>
     IBus bus,
     IDbConnection connection)
   {
-    _bus = bus;
-    _connection = connection;
+    _bus = bus.CheckNotNull();
+    _connection = connection.CheckNotNull();
   }
 
   public async Task Handle(SendEMailEvent message)
   {
+    message.CheckNotNull();
+
     Console.WriteLine(message.Id);
 
     var emailData = _connection.Get<EMailEvent>(message.Id);
