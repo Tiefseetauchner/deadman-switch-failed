@@ -1,5 +1,8 @@
 namespace DeadManSwitchFailed.Common.Domain.Models;
 
+/// <summary>
+/// Vault unlock event that sends an E-Mail
+/// </summary>
 public class EMailEvent : EventBase
 {
   public string From { get; set; }

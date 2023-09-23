@@ -14,3 +14,4 @@ tab_width = 4
 #### Diagnostic configuration ####
 
 dotnet_diagnostic.CA1062.severity = error
+dotnet_diagnostic.CS8601.severity = none
