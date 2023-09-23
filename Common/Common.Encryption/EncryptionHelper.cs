@@ -6,44 +6,40 @@ namespace Common.Encryption;
 
 public static class EncryptionHelper
 {
-  public static CryptoStream CreateEncryptionCryptoStream(Stream stream, string password) =>
+  public static CryptoStream CreateEncryptionCryptoStream(Stream stream, string password, byte[] iv) =>
     new(stream,
-      CreateEncryptionAesTransformFromPassword(password),
+      CreateEncryptionAesTransformFromPassword(password, iv),
       CryptoStreamMode.Write);
 
-  private static ICryptoTransform CreateEncryptionAesTransformFromPassword(string password)
+  private static ICryptoTransform CreateEncryptionAesTransformFromPassword(string password, byte[] iv)
   {
-    var (passwordSha256, passwordMd5) = GetPasswordHashes(password);
+    var passwordSha256 = GetPasswordHash(password);
 
-    return CreateAes(passwordSha256, passwordMd5).CreateEncryptor(passwordSha256, passwordMd5);
+    return CreateAes(passwordSha256, iv).CreateEncryptor();
   }
 
-  public static CryptoStream CreateDecryptionCryptoStream(Stream stream, string password) =>
+  public static CryptoStream CreateDecryptionCryptoStream(Stream stream, string password, byte[] iv) =>
     new(stream,
-      CreateDecryptionAesTransformFromPassword(password),
+      CreateDecryptionAesTransformFromPassword(password, iv),
       CryptoStreamMode.Read);
 
-  private static ICryptoTransform CreateDecryptionAesTransformFromPassword(string password)
+  private static ICryptoTransform CreateDecryptionAesTransformFromPassword(string password, byte[] iv)
   {
-    var (passwordSha256, passwordMd5) = GetPasswordHashes(password);
+    var passwordSha256 = GetPasswordHash(password);
 
-    return CreateAes(passwordSha256, passwordMd5).CreateDecryptor(passwordSha256, passwordMd5);
+    return CreateAes(passwordSha256, iv).CreateDecryptor();
   }
 
-  private static (byte[] Sha256, byte[] Md5) GetPasswordHashes(string password)
-  {
-    var passwordBytes = Encoding.UTF8.GetBytes(password);
+  private static byte[] GetPasswordHash(string password) =>
+    SHA256.HashData(Encoding.UTF8.GetBytes(password));
 
-    return (SHA256.HashData(passwordBytes), MD5.HashData(passwordBytes));
-  }
-
-  private static Aes CreateAes(byte[] passwordSha256, byte[] passwordMd5)
+  private static Aes CreateAes(byte[] passwordSha256, byte[] iv)
   {
     var aes = Aes.Create();
 
     aes.Key = passwordSha256;
-    aes.IV = passwordMd5;
-    aes.Padding = PaddingMode.Zeros;
+    aes.IV = iv;
+    aes.Padding = PaddingMode.ISO10126;
 
     return aes;
   }
