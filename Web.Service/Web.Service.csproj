@@ -4,7 +4,7 @@
         <TargetFramework>net7.0</TargetFramework>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <OutputType>WinExe</OutputType>
-        <RootNamespace>DeadManSwitchFailed.Web</RootNamespace>
+        <RootNamespace>DeadManSwitchFailed.Web.Service</RootNamespace>
         <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     </PropertyGroup>
 
@@ -26,6 +26,20 @@
         <PackageReference Include="Rebus.ServiceProvider" Version="9.1.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
         <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="ClientApp\angular.json" />
+      <None Include="ClientApp\package-lock.json" />
+      <None Include="ClientApp\package.json" />
+      <None Include="ClientApp\tsconfig.app.json" />
+      <None Include="ClientApp\tsconfig.json" />
+      <None Include="ClientApp\tsconfig.spec.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Pages\Error.cshtml" />
+      <AdditionalFiles Include="Pages\_ViewImports.cshtml" />
     </ItemGroup>
 
 </Project>

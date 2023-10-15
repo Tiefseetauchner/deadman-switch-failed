@@ -10,7 +10,7 @@ public class EncryptedTest
   [Test]
   public void Decrypt()
   {
-    var message = new EventToken()
+    var message = new Vault()
     {
       Id = Guid.NewGuid(),
       AccessToken = "asdf",
@@ -24,14 +24,14 @@ public class EncryptedTest
       PasswordHash = "aaaaaaaaaaaaaaaaaaaaaaa"
     };
 
-    var encrpyted = Encrypted<EventToken>.Create(message, "asdfghjkl");
+    var encrpyted = Encrypted<Vault>.Create(message, "asdfghjkl");
 
     var decrypted = encrpyted.Decrypt("asdfghjkl");
 
     AssertEventTokenEquals(decrypted, message);
   }
 
-  private void AssertEventTokenEquals(EventToken token, EventToken expected)
+  private void AssertEventTokenEquals(Vault token, Vault expected)
   {
     Assert.That(token.AccessToken, Is.EqualTo(expected.AccessToken));
     Assert.That(token.Id, Is.EqualTo(expected.Id));

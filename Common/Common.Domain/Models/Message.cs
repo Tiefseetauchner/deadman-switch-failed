@@ -7,5 +7,5 @@ public class Message : EntityBase
 {
   public string Addressee { get; set; }
   public string Content { get; set; }
-  public EventToken AccessingEvent { get; set; }
+  public Vault ContainingVault { get; set; }
 }

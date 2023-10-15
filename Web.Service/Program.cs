@@ -14,7 +14,7 @@ var configuration = new ConfigurationBuilder()
   .Build();
 
 var services = builder.Services;
-services.AddControllers();
+services.AddControllersWithViews();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 
@@ -39,11 +39,22 @@ if (app.Environment.IsDevelopment())
   app.UseSwagger();
   app.UseSwaggerUI();
 }
+else
+{
+  app.UseHsts();
+}
+
 
 app.UseHttpsRedirection();
-
+app.UseStaticFiles();
+app.UseRouting();
 app.UseAuthorization();
-
 app.MapControllers();
+
+app.MapControllerRoute(
+  name: "default",
+  pattern: "{controller}/{action=Index}/{id?}");
+
+app.MapFallbackToFile("index.html");
 
 app.Run();

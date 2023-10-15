@@ -4,7 +4,7 @@
         <TargetFramework>net7.0</TargetFramework>
         <UserSecretsId>dotnet-Service-C452AFFC-2048-49B4-9BA6-162AAEE62FEA</UserSecretsId>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-        <RootNamespace>DeadManSwitchFailed.Service</RootNamespace>
+        <RootNamespace>DeadManSwitchFailed.Notification.Service</RootNamespace>
         <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     </PropertyGroup>
 

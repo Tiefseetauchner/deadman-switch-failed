@@ -8,6 +8,6 @@ namespace DeadManSwitchFailed.Common.Domain.Models;
 /// </summary>
 public abstract class EntityBase
 {
-  [Key]
+  [Key, Computed]
   public Guid Id { get; set; }
 }
