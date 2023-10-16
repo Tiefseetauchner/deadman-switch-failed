@@ -15,7 +15,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Common.Domain\Common.Domain.csproj" />
         <ProjectReference Include="..\Common.Email\Common.Email.csproj" />
         <ProjectReference Include="..\Common.Encryption\Common.Encryption.csproj" />
     </ItemGroup>

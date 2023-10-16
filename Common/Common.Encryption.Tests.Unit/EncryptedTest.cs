@@ -1,6 +1,5 @@
-using System;
-using DeadManSwitchFailed.Common.Domain.Models;
 using NUnit.Framework;
+using System;
 
 namespace Common.Encryption.Tests.Unit;
 
@@ -10,40 +9,39 @@ public class EncryptedTest
   [Test]
   public void Decrypt()
   {
-    var message = new Vault()
-    {
-      Id = Guid.NewGuid(),
-      AccessToken = "asdf",
-      OwningUser = new User
-      {
-        Id = Guid.NewGuid(),
-        DisplayName = "asdf",
-        PasswordHash = "aaaaaadfioje",
-        UserName = "asdfoht4ewdf803rwoijef"
-      },
-      PasswordHash = "aaaaaaaaaaaaaaaaaaaaaaa"
-    };
+    var testObject = new TestClass(
+      Guid.NewGuid(),
+      "name",
+      new TestSubClass(
+        Guid.NewGuid(),
+        "name"));
 
-    var encrpyted = Encrypted<Vault>.Create(message, "asdfghjkl");
+    var encrpyted = Encrypted<TestClass>.Create(testObject, "password");
 
-    var decrypted = encrpyted.Decrypt("asdfghjkl");
+    var decrypted = encrpyted.Decrypt("password");
 
-    AssertEventTokenEquals(decrypted, message);
+    AssertTestClassEquals(decrypted, testObject);
   }
 
-  private void AssertEventTokenEquals(Vault token, Vault expected)
+  private void AssertTestClassEquals(TestClass actual, TestClass expected)
   {
-    Assert.That(token.AccessToken, Is.EqualTo(expected.AccessToken));
-    Assert.That(token.Id, Is.EqualTo(expected.Id));
-    Assert.That(token.PasswordHash, Is.EqualTo(expected.PasswordHash));
-    AssertUserEquals(token.OwningUser, expected.OwningUser);
+    Assert.That(actual.Id, Is.EqualTo(expected.Id));
+    Assert.That(actual.Name, Is.EqualTo(expected.Name));
+    AssertUserEquals(actual.TestSubClass, expected.TestSubClass);
   }
 
-  private void AssertUserEquals(User user, User expected)
+  private void AssertUserEquals(TestSubClass actual, TestSubClass expected)
   {
-    Assert.That(user.UserName, Is.EqualTo(expected.UserName));
-    Assert.That(user.PasswordHash, Is.EqualTo(expected.PasswordHash));
-    Assert.That(user.DisplayName, Is.EqualTo(expected.DisplayName));
-    Assert.That(user.Id, Is.EqualTo(expected.Id));
+    Assert.That(actual.Id, Is.EqualTo(expected.Id));
+    Assert.That(actual.Name, Is.EqualTo(expected.Name));
   }
+
+  private record TestClass(
+    Guid Id,
+    string Name,
+    TestSubClass TestSubClass);
+
+  private record TestSubClass(
+    Guid Id,
+    string Name);
 }
