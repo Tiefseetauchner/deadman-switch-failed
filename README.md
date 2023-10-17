@@ -15,3 +15,9 @@ The basic idea is to have a vault where you can add letters, emails, and other f
 - [ ] Send messages to servers with Discord Bot (might actually be a dumb idea...)
 - [ ] Do Discord integration? This might be a TOS violation
 - [ ] Add a funny bunny
+
+# I have a coffee addiction
+
+And you can help!
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/tiefseetauchner)
