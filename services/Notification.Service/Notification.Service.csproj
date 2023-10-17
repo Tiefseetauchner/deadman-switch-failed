@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Common.ArgumentChecks\Common.ArgumentChecks.csproj" />
+    <ProjectReference Include="..\..\Common\Common.Encryption\Common.Encryption.csproj" />
   </ItemGroup>
 
 </Project>

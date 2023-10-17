@@ -2,27 +2,54 @@
 
 namespace Notification.Service.Models
 {
-  public class Notification
+  public class Notification<T>
   {
     public Notification(
+      Guid id)
+    {
+      Id = id.CheckNotNull();
+    }
+
+    public Guid Id { get; set; }
+  }
+
+  public class PersistentNotification
+  {
+    public PersistentNotification(
       Guid id,
       byte[] encryptedContent)
     {
       Id = id.CheckNotNull();
-      EncryptedContent = encryptedContent.CheckNotNull();
+      EncryptedContent = encryptedContent;
     }
 
     public Guid Id { get; set; }
-    protected byte[] EncryptedContent { get; set; }
+    public byte[] EncryptedContent { get; set; }
   }
 
-  public class EmailNotification : Notification
+  public class EmailNotification
   {
     public EmailNotification(
-      Guid id
-      )
-      : base(id, Array.Empty<byte>())
+      string from,
+      string[] to,
+      string[] cc,
+      string[] bcc,
+      string subject,
+      string body)
     {
+      From = from.CheckNotNull();
+      To = to.CheckNotNull();
+      Cc = cc;
+      Bcc = bcc;
+      Subject = subject.CheckNotNull();
+      Body = body.CheckNotNull();
     }
+
+    public string From { get; }
+    public string[] To { get; }
+    public string[] Cc { get; }
+    public string[] Bcc { get; }
+    public string Subject { get; }
+    public string Body { get; }
   }
 }
