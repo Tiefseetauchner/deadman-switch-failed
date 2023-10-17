@@ -1,5 +1,3 @@
-using System.Net;
-using System.Net.Mail;
 using DeadmanSwitchFailed.Common.ArgumentChecks;
 
 namespace DeadmanSwitchFailed.Common.Email;
@@ -12,6 +10,7 @@ public class SmtpClientFactory : ISmtpClientFactory
   private readonly string _username;
   private readonly string _password;
 
+  /// <param name="timeout">Timeout in Milliseconds</param>
   public SmtpClientFactory(
     string host,
     int port,
@@ -22,21 +21,19 @@ public class SmtpClientFactory : ISmtpClientFactory
     _host = host.CheckNotNull();
     _port = port.CheckNotNull();
     _timeout = timeout.CheckNotNull();
-    _username = username.CheckNotNull();
-    _password = password.CheckNotNull();
+    _username = username;
+    _password = password;
   }
 
-  public SmtpClient Create() =>
-    new()
-    {
-      Credentials = new NetworkCredential(_username, _password),
-      Host = _host,
-      Port = _port,
-      Timeout = _timeout,
-    };
-}
+  public ISmtpClient Create()
+  {
+    var mailKitClient = new MailKit.Net.Smtp.SmtpClient();
+    mailKitClient.Timeout = _timeout;
 
-public interface ISmtpClientFactory
-{
-  SmtpClient Create();
+    return new SmtpClient(mailKitClient,
+      _host,
+      _port,
+      _username,
+      _password);
+  }
 }
