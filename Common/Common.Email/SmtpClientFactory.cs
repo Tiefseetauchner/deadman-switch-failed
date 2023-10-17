@@ -1,8 +1,8 @@
 using System.Net;
 using System.Net.Mail;
-using DeadManSwitchFailed.Common.ArgumentChecks;
+using DeadmanSwitchFailed.Common.ArgumentChecks;
 
-namespace DeadManSwitchFailed.Common.Email;
+namespace DeadmanSwitchFailed.Common.Email;
 
 public class SmtpClientFactory : ISmtpClientFactory
 {

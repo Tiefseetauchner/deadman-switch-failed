@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
-        <RootNamespace>DeadManSwitchFailed.Common.Email</RootNamespace>
+        <RootNamespace>DeadmanSwitchFailed.Common.Email</RootNamespace>
         <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     </PropertyGroup>
 

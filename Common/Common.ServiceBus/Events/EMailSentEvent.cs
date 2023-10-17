@@ -1,6 +1,6 @@
 using System;
 
-namespace DeadManSwitchFailed.Common.ServiceBus.Events;
+namespace DeadmanSwitchFailed.Common.ServiceBus.Events;
 
 public class EMailSentEvent
 {

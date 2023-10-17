@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
-namespace DeadManSwitchFailed.Common.ArgumentChecks;
+namespace DeadmanSwitchFailed.Common.ArgumentChecks;
 
 public static class CheckExtensions
 {

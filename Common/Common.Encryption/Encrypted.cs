@@ -2,7 +2,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text.Json;
-using DeadManSwitchFailed.Common.ArgumentChecks;
+using DeadmanSwitchFailed.Common.ArgumentChecks;
 
 namespace Common.Encryption;
 

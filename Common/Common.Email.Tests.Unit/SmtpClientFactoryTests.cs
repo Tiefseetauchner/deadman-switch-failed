@@ -1,5 +1,5 @@
 using System.Net;
-using DeadManSwitchFailed.Common.Email;
+using DeadmanSwitchFailed.Common.Email;
 
 namespace Common.Email.Tests.Unit;
 

@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
-        <RootNamespace>DeadManSwitchFailed.Common.ServiceBus</RootNamespace>
+        <RootNamespace>DeadmanSwitchFailed.Common.ServiceBus</RootNamespace>
         <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     </PropertyGroup>
 
