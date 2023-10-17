@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Notification.Service.Models;
 
 namespace Notification.Service.Controllers
 {
@@ -7,5 +7,10 @@ namespace Notification.Service.Controllers
   [ApiController]
   public class NotificationController : ControllerBase
   {
+    [HttpGet("")]
+    public ActionResult<EmailNotification> Get_EmailNotification()
+    {
+      return Ok();
+    }
   }
 }
