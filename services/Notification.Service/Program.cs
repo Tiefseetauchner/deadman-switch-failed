@@ -1,4 +1,3 @@
-
 namespace Notification.Service
 {
   public class Program
@@ -26,7 +25,6 @@ namespace Notification.Service
       app.UseHttpsRedirection();
 
       app.UseAuthorization();
-
 
       app.MapControllers();
 
