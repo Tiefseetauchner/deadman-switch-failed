@@ -28,18 +28,4 @@
         <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <None Include="ClientApp\angular.json" />
-      <None Include="ClientApp\package-lock.json" />
-      <None Include="ClientApp\package.json" />
-      <None Include="ClientApp\tsconfig.app.json" />
-      <None Include="ClientApp\tsconfig.json" />
-      <None Include="ClientApp\tsconfig.spec.json" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <AdditionalFiles Include="Pages\Error.cshtml" />
-      <AdditionalFiles Include="Pages\_ViewImports.cshtml" />
-    </ItemGroup>
-
 </Project>
