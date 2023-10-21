@@ -3,16 +3,16 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Service/Service.csproj", "Service/"]
-RUN dotnet restore "Service/Service.csproj"
+COPY ["Notification.Service/Notification.Service.csproj", "Service/"]
+RUN dotnet restore "Notification.Service/Notification.Service.csproj"
 COPY . .
-WORKDIR "/src/Service"
-RUN dotnet build "Service.csproj" -c Release -o /app/build
+WORKDIR "/src/Notification.Service"
+RUN dotnet build "Notification.Service.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Service.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Notification.Service.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Service.dll"]
+ENTRYPOINT ["dotnet", "Notification.Service.dll"]
