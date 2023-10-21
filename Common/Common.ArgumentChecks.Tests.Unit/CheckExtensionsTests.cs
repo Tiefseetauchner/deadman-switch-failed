@@ -1,7 +1,6 @@
-using DeadmanSwitchFailed.Common.ArgumentChecks;
 using System;
 
-namespace Common.ArgumentChecks.Tests.Unit
+namespace DeadmanSwitchFailed.Common.ArgumentChecks.Tests.Unit
 {
   [TestFixture]
   public class CheckExtensionsTests
