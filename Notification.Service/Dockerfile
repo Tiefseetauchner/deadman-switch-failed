@@ -3,7 +3,7 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Notification.Service/Notification.Service.csproj", "Service/"]
+COPY ["Notification.Service/Notification.Service.csproj", "Notification.Service/"]
 RUN dotnet restore "Notification.Service/Notification.Service.csproj"
 COPY . .
 WORKDIR "/src/Notification.Service"

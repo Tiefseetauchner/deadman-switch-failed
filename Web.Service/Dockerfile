@@ -5,7 +5,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Web.Service/Web.Service.csproj", "Web/"]
+COPY ["Web.Service/Web.Service.csproj", "Web.Service/"]
 RUN dotnet restore "Web.Service/Web.Service.csproj"
 COPY . .
 WORKDIR "/src/Web.Service"
