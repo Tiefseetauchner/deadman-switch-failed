@@ -21,6 +21,7 @@
     <ProjectReference Include="..\..\Common\Common.Email\Common.Email.csproj" />
     <ProjectReference Include="..\..\Common\Common.Encryption\Common.Encryption.csproj" />
     <ProjectReference Include="..\..\Common\Common.ServiceBus\Common.ServiceBus.csproj" />
+    <ProjectReference Include="..\Notification.Service.Domain\Notification.Service.Domain.csproj" />
   </ItemGroup>
 
 </Project>

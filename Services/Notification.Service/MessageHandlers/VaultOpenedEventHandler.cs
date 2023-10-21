@@ -1,14 +1,13 @@
-﻿using DeadmanSwitchFailed.Common.Email;
-using DeadmanSwitchFailed.Common.ServiceBus.Events;
-using Notification.Service.Domain.Repositories;
-using Notification.Service.Domain.Models;
-using Rebus.Handlers;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DeadmanSwitchFailed.Common.ArgumentChecks;
+using DeadmanSwitchFailed.Common.Email;
+using DeadmanSwitchFailed.Common.ServiceBus.Events;
+using DeadmanSwitchFailed.Services.Notification.Service.Domain.Models;
+using DeadmanSwitchFailed.Services.Notification.Service.Domain.Repositories;
 using Microsoft.Extensions.Logging;
-using System;
+using Rebus.Handlers;
 
-namespace Notification.Service.MessageHandlers
+namespace DeadmanSwitchFailed.Services.Notification.Service.MessageHandlers
 {
   public class VaultOpenedEventHandler : IHandleMessages<VaultOpenedEvent>
   {
@@ -32,6 +31,7 @@ namespace Notification.Service.MessageHandlers
       if (notification == null)
       {
         _logger.LogWarning($"Notification with id {message.Id} was not found.");
+
         return;
       }
 
@@ -47,7 +47,7 @@ namespace Notification.Service.MessageHandlers
       var emailNotification = notification as EmailNotification;
 
       await smtpClient.SendAsync(emailNotification.From, emailNotification.To, emailNotification.Cc,
-               emailNotification.Bcc, emailNotification.Subject, emailNotification.Body);
+        emailNotification.Bcc, emailNotification.Subject, emailNotification.Body);
 
       await _notificationRepository.MarkNotificationAsSent(notification.Id);
     }

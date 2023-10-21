@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Notification.Service.Models;
+﻿using DeadmanSwitchFailed.Services.Notification.Service.Domain.Models;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Notification.Service.Controllers
+namespace DeadmanSwitchFailed.Services.Notification.Service.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]

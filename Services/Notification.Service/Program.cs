@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Notification.Service
+namespace DeadmanSwitchFailed.Services.Notification.Service
 {
   public class Program
   {

@@ -1,4 +1,6 @@
-﻿namespace Notification.Service.Domain.Models
+﻿using System;
+
+namespace DeadmanSwitchFailed.Services.Notification.Service.Domain.Models
 {
   public abstract class Notification
   {
