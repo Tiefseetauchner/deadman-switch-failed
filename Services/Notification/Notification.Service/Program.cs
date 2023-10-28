@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using DeadmanSwitchFailed.Common.Email;
 using DeadmanSwitchFailed.Services.Notification.Service.Domain;
 using DeadmanSwitchFailed.Services.Notification.Service.Domain.Repositories;
@@ -32,6 +33,12 @@ namespace DeadmanSwitchFailed.Services.Notification.Service
       builder.Services.AddMySql<NotificationContext>(connectionStrings["ServiceDatabase"], MariaDbServerVersion.LatestSupportedServerVersion);
 
       builder.Services.AddScoped<INotificationRepository>(_ => new NotificationRepository(_.GetService<NotificationContext>()));
+
+      builder.Services.ConfigureHttpJsonOptions(_ =>
+      {
+        _.SerializerOptions.IncludeFields = true;
+        _.SerializerOptions.UnknownTypeHandling = JsonUnknownTypeHandling.JsonElement;
+      });
 
       var app = builder.Build();
 

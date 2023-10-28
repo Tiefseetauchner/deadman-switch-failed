@@ -6,11 +6,11 @@ namespace DeadmanSwitchFailed.Services.Notification.Service.Domain.Repositories
 {
   public interface INotificationRepository
   {
-    Task<IEnumerable<Models.Notification>> GetNotificationsByVaultIdAsync(Guid id);
+    Task<IEnumerable<dynamic>> GetNotificationsByVaultIdAsync(Guid id);
 
     Task MarkNotificationAsSent(Guid id);
 
-    Task<Models.Notification> GetById(Guid id);
+    Task<dynamic> TryGetById(Guid id);
 
     Task<Guid> CreateEmailNotification(Models.EmailNotification notification);
   }

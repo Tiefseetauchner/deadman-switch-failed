@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using DeadmanSwitchFailed.Services.Notification.Service.Domain.Models;
 using DeadmanSwitchFailed.Services.Notification.Service.Domain.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -16,16 +17,22 @@ namespace DeadmanSwitchFailed.Services.Notification.Service.Controllers
       _notificationRepository = notificationRepository;
     }
 
-    [HttpGet("")]
-    public ActionResult<EmailNotification> Get_Notifications()
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<EmailNotification>> Get_Notifications(Guid id)
     {
-      return Ok(_notificationRepository.GetNotificationsByVaultIdAsync(new Guid()));
+      return await _notificationRepository.TryGetById(id) is { } notification ? Ok(notification) : NotFound();
+    }
+
+    [HttpGet("vault/{vaultId:guid}")]
+    public async Task<ActionResult<dynamic>> Get_Notifications_FromVault(Guid vaultId)
+    {
+      return Ok(await _notificationRepository.GetNotificationsByVaultIdAsync(vaultId));
     }
 
     [HttpPost("")]
-    public ActionResult<Guid> Create_EmailNotification(EmailNotification notification)
+    public async Task<ActionResult<Guid>> Create_EmailNotification(EmailNotification notification)
     {
-      return Ok(_notificationRepository.CreateEmailNotification(notification));
+      return Ok(await _notificationRepository.CreateEmailNotification(notification));
     }
   }
 }

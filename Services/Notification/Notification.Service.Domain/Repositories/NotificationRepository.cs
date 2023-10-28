@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Arch.EntityFrameworkCore.UnitOfWork;
 using DeadmanSwitchFailed.Common.ArgumentChecks;
 using DeadmanSwitchFailed.Services.Notification.Service.Domain.Models;
 using Microsoft.EntityFrameworkCore;
@@ -18,23 +19,34 @@ public class NotificationRepository : INotificationRepository
     _context = context;
   }
 
-  public async Task<IEnumerable<Models.Notification>> GetNotificationsByVaultIdAsync(Guid id) =>
+  public async Task<IEnumerable<dynamic>> GetNotificationsByVaultIdAsync(Guid id) =>
     (await _context.Notifications.AsQueryable()
       .Where(_ => _.VaultId == id)
       .ToListAsync())
     .Select(GetAggregate);
 
-  public async Task<Guid> CreateEmailNotification(Models.EmailNotification notification) =>
-    (await _context.AddAsync(GetPersistent(notification.CheckNotNull()))).Entity.Id;
+  public async Task<Guid> CreateEmailNotification(EmailNotification notification)
+  {
+    var unitOfWork = new UnitOfWork<NotificationContext>(_context);
+
+    var result = await _context.AddAsync(GetPersistent(notification.CheckNotNull()));
+
+    await unitOfWork.SaveChangesAsync();
+
+    return result.Entity.Id;
+  }
 
   public Task MarkNotificationAsSent(Guid id) =>
     throw new NotImplementedException();
 
-  public Task<Models.Notification> GetById(Guid id) =>
-    throw new NotImplementedException();
+  public async Task<dynamic> TryGetById(Guid id) =>
+    await _context.Notifications.AsQueryable()
+      .SingleOrDefaultAsync(_ => _.VaultId == id) is { } result
+      ? GetAggregate(result)
+      : null;
 
 
-  private Models.Notification GetAggregate(PersistentNotification persistentNotification)
+  private dynamic GetAggregate(PersistentNotification persistentNotification)
   {
     var notification = persistentNotification.Type switch
     {
@@ -53,7 +65,11 @@ public class NotificationRepository : INotificationRepository
     {
       Id = notification.Id,
       Type = notification.NotificationType,
-      ContainedData = JsonSerializer.SerializeToUtf8Bytes(notification),
+      ContainedData = notification.NotificationType switch
+      {
+        NotificationType.Email => JsonSerializer.SerializeToUtf8Bytes(notification as EmailNotification),
+        _ => throw new ArgumentOutOfRangeException()
+      },
       VaultId = notification.VaultId,
       Aggregate = notification
     };
