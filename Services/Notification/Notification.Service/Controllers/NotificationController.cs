@@ -1,4 +1,6 @@
-﻿using DeadmanSwitchFailed.Services.Notification.Service.Domain.Models;
+﻿using System;
+using DeadmanSwitchFailed.Services.Notification.Service.Domain.Models;
+using DeadmanSwitchFailed.Services.Notification.Service.Domain.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DeadmanSwitchFailed.Services.Notification.Service.Controllers
@@ -7,10 +9,17 @@ namespace DeadmanSwitchFailed.Services.Notification.Service.Controllers
   [ApiController]
   public class NotificationController : ControllerBase
   {
-    [HttpGet("")]
-    public ActionResult<EmailNotification> Get_EmailNotification()
+    private readonly INotificationRepository _notificationRepository;
+
+    public NotificationController(INotificationRepository notificationRepository)
     {
-      return Ok();
+      _notificationRepository = notificationRepository;
+    }
+
+    [HttpGet("")]
+    public ActionResult<EmailNotification> Get_Notifications()
+    {
+      return Ok(_notificationRepository.GetNotificationsByVaultIdAsync(new Guid()));
     }
   }
 }

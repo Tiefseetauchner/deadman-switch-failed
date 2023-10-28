@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{AC474D7A-4013-484B-B0E5-26262DA7C270}"
+	ProjectSection(SolutionItems) = preProject
+		Common\createDatabase.sql = Common\createDatabase.sql
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.ServiceBus", "Common\Common.ServiceBus\Common.ServiceBus.csproj", "{0C5A633A-2749-4DCD-86A1-ACF3ED44F2EE}"
 EndProject
@@ -26,6 +29,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notification.Service", "Services\Notification\Notification.Service\Notification.Service.csproj", "{D38EB937-339C-431C-9B50-03E12FAC9702}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notification.Service.Domain", "Services\Notification\Notification.Service.Domain\Notification.Service.Domain.csproj", "{FD569CFE-2B03-4B49-B033-86BC9BEFC6AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notification.Service.Domain.Tests.Unit", "Services\Notification\Notification.Service.Domain.Tests.Unit\Notification.Service.Domain.Tests.Unit.csproj", "{B30B0420-757B-4F7E-A264-5A56B77D6E75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Domain", "Common\Common.Domain\Common.Domain.csproj", "{75013B04-1993-4D33-9A78-CE7C45E02A5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +76,14 @@ Global
 		{FD569CFE-2B03-4B49-B033-86BC9BEFC6AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD569CFE-2B03-4B49-B033-86BC9BEFC6AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD569CFE-2B03-4B49-B033-86BC9BEFC6AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B30B0420-757B-4F7E-A264-5A56B77D6E75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B30B0420-757B-4F7E-A264-5A56B77D6E75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B30B0420-757B-4F7E-A264-5A56B77D6E75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B30B0420-757B-4F7E-A264-5A56B77D6E75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75013B04-1993-4D33-9A78-CE7C45E02A5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75013B04-1993-4D33-9A78-CE7C45E02A5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75013B04-1993-4D33-9A78-CE7C45E02A5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75013B04-1993-4D33-9A78-CE7C45E02A5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +99,8 @@ Global
 		{9F7BB7A6-608F-450D-AD10-51A7756412BA} = {8E487A5C-0B1E-4D33-B6D7-BA48A809315D}
 		{D38EB937-339C-431C-9B50-03E12FAC9702} = {9F7BB7A6-608F-450D-AD10-51A7756412BA}
 		{FD569CFE-2B03-4B49-B033-86BC9BEFC6AD} = {9F7BB7A6-608F-450D-AD10-51A7756412BA}
+		{B30B0420-757B-4F7E-A264-5A56B77D6E75} = {9F7BB7A6-608F-450D-AD10-51A7756412BA}
+		{75013B04-1993-4D33-9A78-CE7C45E02A5F} = {AC474D7A-4013-484B-B0E5-26262DA7C270}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {958ACD1F-7AD3-4FEE-8176-A260E3FCCB71}

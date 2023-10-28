@@ -1,27 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <UserSecretsId>f538ade8-919b-447c-93a4-b05147adb275</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <TargetFramework>net7.0</TargetFramework>
-    <RootNamespace>DeadmanSwitchFailed.Services.Notification.Service</RootNamespace>
-    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <UserSecretsId>f538ade8-919b-447c-93a4-b05147adb275</UserSecretsId>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <TargetFramework>net7.0</TargetFramework>
+        <RootNamespace>DeadmanSwitchFailed.Services.Notification.Service</RootNamespace>
+        <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.11" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.4" />
-    <PackageReference Include="Rebus" Version="7.2.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.11" />
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.4" />
+        <PackageReference Include="Rebus" Version="7.2.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Common\Common.ArgumentChecks\Common.ArgumentChecks.csproj" />
-    <ProjectReference Include="..\..\Common\Common.Email\Common.Email.csproj" />
-    <ProjectReference Include="..\..\Common\Common.Encryption\Common.Encryption.csproj" />
-    <ProjectReference Include="..\..\Common\Common.ServiceBus\Common.ServiceBus.csproj" />
-    <ProjectReference Include="..\Notification.Service.Domain\Notification.Service.Domain.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Common\Common.Domain\Common.Domain.csproj" />
+        <ProjectReference Include="..\..\..\Common\Common.Email\Common.Email.csproj" />
+        <ProjectReference Include="..\..\..\Common\Common.ServiceBus\Common.ServiceBus.csproj" />
+        <ProjectReference Include="..\Notification.Service.Domain\Notification.Service.Domain.csproj" />
+    </ItemGroup>
 
 </Project>
