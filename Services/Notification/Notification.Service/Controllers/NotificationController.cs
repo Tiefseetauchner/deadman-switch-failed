@@ -25,7 +25,7 @@ namespace DeadmanSwitchFailed.Services.Notification.Service.Controllers
     [HttpPost("")]
     public ActionResult<Guid> Create_EmailNotification(EmailNotification notification)
     {
-      return Ok(_notificationRepository.CreateEmail(notification));
+      return Ok(_notificationRepository.CreateEmailNotification(notification));
     }
   }
 }

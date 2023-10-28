@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{AC474D7A-4013-484B-B0E5-26262DA7C270}"
-	ProjectSection(SolutionItems) = preProject
-		Common\createDatabase.sql = Common\createDatabase.sql
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.ServiceBus", "Common\Common.ServiceBus\Common.ServiceBus.csproj", "{0C5A633A-2749-4DCD-86A1-ACF3ED44F2EE}"
 EndProject

@@ -1,49 +1,31 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Dapper.Contrib.Extensions;
 using DeadmanSwitchFailed.Common.ArgumentChecks;
-using DeadmanSwitchFailed.Common.Email;
 using DeadmanSwitchFailed.Services.Notification.Service.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DeadmanSwitchFailed.Services.Notification.Service.Domain.Repositories;
 
 public class NotificationRepository : INotificationRepository
 {
-  private readonly IDbConnection _connection;
-  private readonly ISmtpClientFactory _smtpClientFactory;
+  private readonly NotificationContext _context;
 
-  public NotificationRepository(IDbConnection connection, ISmtpClientFactory smtpClientFactory)
+  public NotificationRepository(NotificationContext context)
   {
-    _connection = connection;
-    _connection.Open();
-    _smtpClientFactory = smtpClientFactory;
+    _context = context;
   }
 
-  public async Task<IEnumerable<Models.Notification>> GetNotificationsByVaultIdAsync(Guid id)
-  {
-    var notifications = await _connection.GetAllAsync<PersistentNotification>();
+  public async Task<IEnumerable<Models.Notification>> GetNotificationsByVaultIdAsync(Guid id) =>
+    (await _context.Notifications.AsQueryable()
+      .Where(_ => _.VaultId == id)
+      .ToListAsync())
+    .Select(GetAggregate);
 
-    return GetNotifications(notifications);
-  }
-
-  private IEnumerable<Models.Notification> GetNotifications(IEnumerable<PersistentNotification> persistentNotifications) =>
-    persistentNotifications.Select(GetCastNotification);
-
-  private Models.Notification GetCastNotification(PersistentNotification persistentNotification) =>
-    persistentNotification.Type switch
-    {
-      NotificationType.Email => JsonSerializer.Deserialize<EmailNotification>(persistentNotification.ContainedData),
-      _ => throw new ArgumentOutOfRangeException()
-    };
-
-  public async Task<IEnumerable<Models.Notification>> CreateNotification(Models.Notification notification)
-  {
-    return await _connection.GetAllAsync<Models.Notification>();
-  }
+  public async Task<Guid> CreateEmailNotification(Models.EmailNotification notification) =>
+    (await _context.AddAsync(GetPersistent(notification.CheckNotNull()))).Entity.Id;
 
   public Task MarkNotificationAsSent(Guid id) =>
     throw new NotImplementedException();
@@ -51,20 +33,28 @@ public class NotificationRepository : INotificationRepository
   public Task<Models.Notification> GetById(Guid id) =>
     throw new NotImplementedException();
 
-  public async Task<Guid> CreateEmail(EmailNotification notification)
+
+  private Models.Notification GetAggregate(PersistentNotification persistentNotification)
   {
-    // var jsonOptions = new JsonSerializerOptions()
-    // {
-    //   IncludeFields = true
-    // };
-
-    await _connection.InsertAsync(new PersistentNotification
+    var notification = persistentNotification.Type switch
     {
-      Type = notification.CheckNotNull().NotificationType,
-      ContainedData = JsonSerializer.SerializeToUtf8Bytes(notification),
-      VaultId = Guid.NewGuid(),
-    });
+      NotificationType.Email => JsonSerializer.Deserialize<EmailNotification>(persistentNotification.ContainedData),
+      _ => throw new ArgumentOutOfRangeException()
+    };
 
-    return Guid.NewGuid();
+    notification.Id = persistentNotification.Id;
+    notification.VaultId = persistentNotification.VaultId;
+
+    return notification;
   }
+
+  private PersistentNotification GetPersistent(Models.Notification notification) =>
+    new()
+    {
+      Id = notification.Id,
+      Type = notification.NotificationType,
+      ContainedData = JsonSerializer.SerializeToUtf8Bytes(notification),
+      VaultId = notification.VaultId,
+      Aggregate = notification
+    };
 }

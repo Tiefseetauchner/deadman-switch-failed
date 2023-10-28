@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DeadmanSwitchFailed.Services.Notification.Service.Domain.Models;
 
 namespace DeadmanSwitchFailed.Services.Notification.Service.Domain.Repositories
 {
@@ -13,6 +12,6 @@ namespace DeadmanSwitchFailed.Services.Notification.Service.Domain.Repositories
 
     Task<Models.Notification> GetById(Guid id);
 
-    Task<Guid> CreateEmail(EmailNotification notification);
+    Task<Guid> CreateEmailNotification(Models.EmailNotification notification);
   }
 }

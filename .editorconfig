@@ -15,3 +15,7 @@ tab_width = 4
 
 dotnet_diagnostic.CA1062.severity = error
 dotnet_diagnostic.CS8601.severity = none
+
+[**/Migrations/**]
+dotnet_diagnostic.CA1062.severity = none
+

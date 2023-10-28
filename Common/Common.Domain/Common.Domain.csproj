@@ -7,20 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Reference Include="Dapper">
-            <HintPath>..\..\..\.nuget\packages\dapper\2.1.15\lib\net5.0\Dapper.dll</HintPath>
-        </Reference>
-        <Reference Include="Dapper.Contrib">
-            <HintPath>..\..\..\.nuget\packages\dapper.contrib\2.0.78\lib\net5.0\Dapper.Contrib.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Common.ArgumentChecks\Common.ArgumentChecks.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Dapper.Contrib.WithColumn" Version="2.0.104" />
+        <ProjectReference Include="..\Common.ArgumentChecks\Common.ArgumentChecks.csproj" />
     </ItemGroup>
 
 </Project>

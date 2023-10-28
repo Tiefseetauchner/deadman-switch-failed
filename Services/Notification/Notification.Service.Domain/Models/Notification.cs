@@ -1,15 +1,16 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Threading.Tasks;
-using Dapper.Contrib.Extensions;
 using DeadmanSwitchFailed.Common.Domain;
 using DeadmanSwitchFailed.Common.Email;
 
 namespace DeadmanSwitchFailed.Services.Notification.Service.Domain.Models
 {
-  public abstract class Notification
+  public abstract class Notification : Aggregate<PersistentNotification>
   {
-    public Guid Id { get; private set; } = Guid.NewGuid();
+    public Guid Id { get; set; } = Guid.NewGuid();
     public abstract NotificationType NotificationType { get; }
+    public Guid VaultId { get; set; }
 
     public abstract Task Send();
   }
@@ -48,6 +49,8 @@ namespace DeadmanSwitchFailed.Services.Notification.Service.Domain.Models
 
       await smtpClient.SendAsync(From, To, Cc, Bcc, Subject, Body);
     }
+
+    public override PersistentNotification Data { get; set; }
   }
 
   public enum NotificationType
@@ -55,14 +58,12 @@ namespace DeadmanSwitchFailed.Services.Notification.Service.Domain.Models
     Email = 0,
   }
 
-  [Table("notifications")]
   public class PersistentNotification : Persistent<Notification>
   {
-    [Column("type")]
     public NotificationType Type { get; set; }
-    [Column("contained_data")]
     public byte[] ContainedData { get; set; }
-    [Column("vault_id")]
     public Guid VaultId { get; set; }
+    [NotMapped]
+    public override Notification Aggregate { get; set; }
   }
 }

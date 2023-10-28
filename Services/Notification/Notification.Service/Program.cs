@@ -1,11 +1,11 @@
-using System.Data;
 using DeadmanSwitchFailed.Common.Email;
+using DeadmanSwitchFailed.Services.Notification.Service.Domain;
 using DeadmanSwitchFailed.Services.Notification.Service.Domain.Repositories;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MySqlConnector;
 
 namespace DeadmanSwitchFailed.Services.Notification.Service
 {
@@ -22,8 +22,6 @@ namespace DeadmanSwitchFailed.Services.Notification.Service
       var mailServerConfiguration = builder.Configuration.GetSection("mailServer");
       var connectionStrings = builder.Configuration.GetSection("connectionStrings");
 
-      builder.Services.AddScoped<IDbConnection, MySqlConnection>(_ => new MySqlConnection(connectionStrings["ServiceDatabase"]));
-
       builder.Services.AddSingleton<ISmtpClientFactory>(_ => new SmtpClientFactory(
         mailServerConfiguration["host"],
         mailServerConfiguration.GetValue<int>("port"),
@@ -31,8 +29,9 @@ namespace DeadmanSwitchFailed.Services.Notification.Service
         mailServerConfiguration["username"],
         mailServerConfiguration["password"]));
 
-      builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
+      builder.Services.AddMySql<NotificationContext>(connectionStrings["ServiceDatabase"], MariaDbServerVersion.LatestSupportedServerVersion);
 
+      builder.Services.AddScoped<INotificationRepository>(_ => new NotificationRepository(_.GetService<NotificationContext>()));
 
       var app = builder.Build();
 
