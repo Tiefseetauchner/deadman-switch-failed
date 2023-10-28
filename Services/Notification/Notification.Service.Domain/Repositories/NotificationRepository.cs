@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Dapper.Contrib.Extensions;
+using DeadmanSwitchFailed.Common.ArgumentChecks;
 using DeadmanSwitchFailed.Common.Email;
 using DeadmanSwitchFailed.Services.Notification.Service.Domain.Models;
 
@@ -49,4 +50,21 @@ public class NotificationRepository : INotificationRepository
 
   public Task<Models.Notification> GetById(Guid id) =>
     throw new NotImplementedException();
+
+  public async Task<Guid> CreateEmail(EmailNotification notification)
+  {
+    // var jsonOptions = new JsonSerializerOptions()
+    // {
+    //   IncludeFields = true
+    // };
+
+    await _connection.InsertAsync(new PersistentNotification
+    {
+      Type = notification.CheckNotNull().NotificationType,
+      ContainedData = JsonSerializer.SerializeToUtf8Bytes(notification),
+      VaultId = Guid.NewGuid(),
+    });
+
+    return Guid.NewGuid();
+  }
 }

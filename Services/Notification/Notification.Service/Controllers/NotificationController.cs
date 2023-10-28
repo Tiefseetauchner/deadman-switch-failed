@@ -21,5 +21,11 @@ namespace DeadmanSwitchFailed.Services.Notification.Service.Controllers
     {
       return Ok(_notificationRepository.GetNotificationsByVaultIdAsync(new Guid()));
     }
+
+    [HttpPost("")]
+    public ActionResult<Guid> Create_EmailNotification(EmailNotification notification)
+    {
+      return Ok(_notificationRepository.CreateEmail(notification));
+    }
   }
 }

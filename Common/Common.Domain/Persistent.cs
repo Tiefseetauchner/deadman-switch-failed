@@ -5,6 +5,6 @@ namespace DeadmanSwitchFailed.Common.Domain;
 
 public abstract class Persistent<T>
 {
-  [Key]
+  [Key, Column("id")]
   public Guid Id { get; set; }
 }

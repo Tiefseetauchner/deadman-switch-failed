@@ -15,4 +15,12 @@
         </Reference>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Common.ArgumentChecks\Common.ArgumentChecks.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Dapper.Contrib.WithColumn" Version="2.0.104" />
+    </ItemGroup>
+
 </Project>

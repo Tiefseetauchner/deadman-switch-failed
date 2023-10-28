@@ -24,6 +24,11 @@ namespace DeadmanSwitchFailed.Services.Notification.Service.Domain.Models
       _smtpClientFactory = smtpClientFactory;
     }
 
+    // NOTE: Only for deserialization
+    public EmailNotification()
+    {
+    }
+
     public string From { get; set; }
     public string To { get; set; }
     public string Cc { get; set; }
@@ -53,8 +58,11 @@ namespace DeadmanSwitchFailed.Services.Notification.Service.Domain.Models
   [Table("notifications")]
   public class PersistentNotification : Persistent<Notification>
   {
+    [Column("type")]
     public NotificationType Type { get; set; }
+    [Column("contained_data")]
     public byte[] ContainedData { get; set; }
+    [Column("vault_id")]
     public Guid VaultId { get; set; }
   }
 }

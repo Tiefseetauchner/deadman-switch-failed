@@ -1,6 +1,4 @@
 using System.Data;
-using Dapper;
-using DeadmanSwitchFailed.Common.Domain;
 using DeadmanSwitchFailed.Common.Email;
 using DeadmanSwitchFailed.Services.Notification.Service.Domain.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -35,7 +33,6 @@ namespace DeadmanSwitchFailed.Services.Notification.Service
 
       builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 
-      SetupDapper();
 
       var app = builder.Build();
 
@@ -52,11 +49,6 @@ namespace DeadmanSwitchFailed.Services.Notification.Service
       app.MapControllers();
 
       app.Run();
-    }
-
-    private static void SetupDapper()
-    {
-      SqlMapper.AddTypeHandler(new GuidTypeHandler());
     }
   }
 }
