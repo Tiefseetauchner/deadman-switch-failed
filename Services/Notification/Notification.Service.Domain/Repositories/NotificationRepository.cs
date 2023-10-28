@@ -10,7 +10,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DeadmanSwitchFailed.Services.Notification.Service.Domain.Repositories;
 
-public class NotificationRepository : INotificationRepository
+public class NotificationRepository :
+  INotificationRepository,
+  IDisposable
 {
   private readonly NotificationContext _context;
 
@@ -73,4 +75,18 @@ public class NotificationRepository : INotificationRepository
       VaultId = notification.VaultId,
       Aggregate = notification
     };
+
+  private void Dispose(bool disposing)
+  {
+    if (disposing)
+    {
+      _context?.Dispose();
+    }
+  }
+
+  public void Dispose()
+  {
+    Dispose(true);
+    GC.SuppressFinalize(this);
+  }
 }
