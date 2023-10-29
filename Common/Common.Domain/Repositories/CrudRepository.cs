@@ -26,9 +26,6 @@ public class CrudRepository<T> : RepositoryBase<T>,
   public async Task<T> CreateAsync(T entity) =>
     (await DbSet.AddAsync(entity)).Entity;
 
-  public async Task<T> CreateFromAggregateAsync<TAggregate>(TAggregate aggregate, Func<TAggregate, T> persistentFactory) =>
-    (await DbSet.AddAsync(persistentFactory.CheckNotNull()(aggregate))).Entity;
-
   public T GetById(Guid id) =>
     DbSet.Find(id);
 
@@ -37,9 +34,6 @@ public class CrudRepository<T> : RepositoryBase<T>,
 
   public T Update(T entity) =>
     DbSet.Update(entity).Entity;
-
-  public T UpdateFromAggregate<TAggregate>(TAggregate aggregate, Func<TAggregate, T> persistentFactory) =>
-    DbSet.Update(persistentFactory.CheckNotNull()(aggregate)).Entity;
 
   public void Delete(T entity) =>
     DbSet.Remove(entity);

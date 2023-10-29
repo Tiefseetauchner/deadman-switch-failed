@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DeadmanSwitchFailed.Services.Notification.Service.Domain;
 using DeadmanSwitchFailed.Services.Notification.Service.Domain.Models;
-using DeadmanSwitchFailed.Services.Notification.Service.Domain.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DeadmanSwitchFailed.Services.Notification.Service.Controllers
@@ -10,31 +10,31 @@ namespace DeadmanSwitchFailed.Services.Notification.Service.Controllers
   [ApiController]
   public class NotificationController : ControllerBase
   {
-    private readonly INotificationRepository _notificationRepository;
+    private readonly UnitOfWork _unitOfWork;
 
-    public NotificationController(INotificationRepository notificationRepository)
+    public NotificationController(UnitOfWork unitOfWork)
     {
-      _notificationRepository = notificationRepository;
+      _unitOfWork = unitOfWork;
     }
 
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<EmailNotification>> Get_Notification(Guid id)
     {
-      return await _notificationRepository.GetByIdAsync(id) is { } notification ? Ok(notification) : NotFound();
+      return await _unitOfWork.NotificationRepository.GetByIdAsync(id) is { } notification ? Ok(notification) : NotFound();
     }
 
     [HttpGet("vault/{vaultId:guid}")]
     public async Task<ActionResult<dynamic>> Get_Notifications_FromVault(Guid vaultId)
     {
-      return Ok(await _notificationRepository.GetNotificationsByVaultIdAsync(vaultId));
+      return Ok(await _unitOfWork.NotificationRepository.GetNotificationsByVaultIdAsync(vaultId));
     }
 
     [HttpPost("")]
     public async Task<ActionResult<Guid>> Create_EmailNotification(EmailNotification notification)
     {
-      var emailNotification = await _notificationRepository.CreateEmailNotification(notification);
+      var emailNotification = await _unitOfWork.NotificationRepository.CreateEmailNotification(notification);
 
-      await _notificationRepository.SaveChanges();
+      await _unitOfWork.Save();
 
       return Ok(emailNotification);
     }
@@ -42,9 +42,9 @@ namespace DeadmanSwitchFailed.Services.Notification.Service.Controllers
     [HttpPut("{id:guid}")]
     public async Task<ActionResult<Guid>> Update_Email(Guid id, EmailNotification notification)
     {
-      var updateFromAggregate = _notificationRepository.UpdateFromAggregate(notification);
+      var updateFromAggregate = _unitOfWork.NotificationRepository.UpdateFromAggregate(notification);
 
-      await _notificationRepository.SaveChanges();
+      await _unitOfWork.Save();
 
       return Ok(updateFromAggregate);
     }

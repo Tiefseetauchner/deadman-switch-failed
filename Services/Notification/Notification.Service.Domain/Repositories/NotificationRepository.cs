@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Arch.EntityFrameworkCore.UnitOfWork;
 using DeadmanSwitchFailed.Common.ArgumentChecks;
 using DeadmanSwitchFailed.Common.Domain.Repositories;
 using DeadmanSwitchFailed.Services.Notification.Service.Domain.Models;
@@ -13,42 +12,34 @@ namespace DeadmanSwitchFailed.Services.Notification.Service.Domain.Repositories;
 
 public class NotificationRepository :
   CrudRepository<PersistentNotification>,
-  INotificationRepository,
-  IDisposable
+  INotificationRepository
 {
-  private readonly NotificationContext _context;
-
-  public NotificationRepository(NotificationContext context, IUnitOfWork<NotificationContext> unitOfWork)
-    : base(context, context.CheckNotNull().Notifications)
+  public NotificationRepository(NotificationContext context)
+    : base(context.CheckNotNull(), context.Notifications)
   {
-    _context = context;
   }
 
   public async Task<IEnumerable<dynamic>> GetNotificationsByVaultIdAsync(Guid id) =>
-    (await _context.Notifications.AsQueryable()
+    (await DbSet.AsQueryable()
       .Where(_ => _.VaultId == id)
       .ToListAsync())
     .Select(GetAggregate);
 
   public async Task<Guid> CreateEmailNotification(EmailNotification notification)
   {
-    var unitOfWork = new UnitOfWork<NotificationContext>(_context);
-
-    var result = await _context.AddAsync(GetPersistent(notification.CheckNotNull()));
-
-    await unitOfWork.SaveChangesAsync();
+    var result = await DbSet.AddAsync(GetPersistent(notification.CheckNotNull()));
 
     return result.Entity.Id;
   }
 
   public PersistentNotification UpdateFromAggregate(Models.Notification notification) =>
-    UpdateFromAggregate(notification, GetPersistent);
+    Update(GetPersistent(notification.CheckNotNull()));
 
   public Task MarkNotificationAsSent(Guid id) =>
     throw new NotImplementedException();
 
   public async Task<dynamic> TryGetById(Guid id) =>
-    await _context.Notifications.AsQueryable()
+    await DbSet.AsQueryable()
       .SingleOrDefaultAsync(_ => _.VaultId == id) is { } result
       ? GetAggregate(result)
       : null;
@@ -80,18 +71,4 @@ public class NotificationRepository :
       VaultId = notification.VaultId,
       Aggregate = notification
     };
-
-  private void Dispose(bool disposing)
-  {
-    if (disposing)
-    {
-      _context?.Dispose();
-    }
-  }
-
-  public void Dispose()
-  {
-    Dispose(true);
-    GC.SuppressFinalize(this);
-  }
 }
