@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Arch.EntityFrameworkCore.UnitOfWork;
 using DeadmanSwitchFailed.Common.Email;
 using DeadmanSwitchFailed.Services.Notification.Service.Domain;
 using DeadmanSwitchFailed.Services.Notification.Service.Domain.Repositories;
@@ -30,9 +31,13 @@ namespace DeadmanSwitchFailed.Services.Notification.Service
         mailServerConfiguration["username"],
         mailServerConfiguration["password"]));
 
-      builder.Services.AddMySql<NotificationContext>(connectionStrings["ServiceDatabase"], MariaDbServerVersion.LatestSupportedServerVersion);
+      builder.Services.AddDbContextPool<NotificationContext>(_ =>
+        _.UseMySql(connectionStrings["ServiceDatabase"], MariaDbServerVersion.LatestSupportedServerVersion));
 
-      builder.Services.AddScoped<INotificationRepository>(_ => new NotificationRepository(_.GetService<NotificationContext>()));
+      builder.Services.AddUnitOfWork<NotificationContext>();
+
+      builder.Services.AddScoped<INotificationRepository>(_ =>
+        new NotificationRepository(_.GetService<NotificationContext>(), _.GetService<IUnitOfWork<NotificationContext>>()));
 
       builder.Services.ConfigureHttpJsonOptions(_ =>
       {

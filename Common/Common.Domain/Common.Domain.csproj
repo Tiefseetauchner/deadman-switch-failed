@@ -10,4 +10,13 @@
         <ProjectReference Include="..\Common.ArgumentChecks\Common.ArgumentChecks.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="Microsoft.EntityFrameworkCore">
+        <HintPath>..\..\..\.nuget\packages\microsoft.entityframeworkcore\7.0.13\lib\net6.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.EntityFrameworkCore.UnitOfWork">
+        <HintPath>..\..\..\.nuget\packages\microsoft.entityframeworkcore.unitofwork\3.1.0\lib\netstandard2.0\Microsoft.EntityFrameworkCore.UnitOfWork.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

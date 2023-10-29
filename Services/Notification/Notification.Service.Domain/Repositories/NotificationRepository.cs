@@ -5,18 +5,21 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Arch.EntityFrameworkCore.UnitOfWork;
 using DeadmanSwitchFailed.Common.ArgumentChecks;
+using DeadmanSwitchFailed.Common.Domain.Repositories;
 using DeadmanSwitchFailed.Services.Notification.Service.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeadmanSwitchFailed.Services.Notification.Service.Domain.Repositories;
 
 public class NotificationRepository :
+  CrudRepository<PersistentNotification>,
   INotificationRepository,
   IDisposable
 {
   private readonly NotificationContext _context;
 
-  public NotificationRepository(NotificationContext context)
+  public NotificationRepository(NotificationContext context, IUnitOfWork<NotificationContext> unitOfWork)
+    : base(context, context.CheckNotNull().Notifications)
   {
     _context = context;
   }
@@ -38,6 +41,9 @@ public class NotificationRepository :
     return result.Entity.Id;
   }
 
+  public PersistentNotification UpdateFromAggregate(Models.Notification notification) =>
+    UpdateFromAggregate(notification, GetPersistent);
+
   public Task MarkNotificationAsSent(Guid id) =>
     throw new NotImplementedException();
 
@@ -46,7 +52,6 @@ public class NotificationRepository :
       .SingleOrDefaultAsync(_ => _.VaultId == id) is { } result
       ? GetAggregate(result)
       : null;
-
 
   private dynamic GetAggregate(PersistentNotification persistentNotification)
   {
