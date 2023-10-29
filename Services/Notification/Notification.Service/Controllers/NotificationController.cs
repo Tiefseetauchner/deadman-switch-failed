@@ -32,13 +32,21 @@ namespace DeadmanSwitchFailed.Services.Notification.Service.Controllers
     [HttpPost("")]
     public async Task<ActionResult<Guid>> Create_EmailNotification(EmailNotification notification)
     {
-      return Ok(await _notificationRepository.CreateEmailNotification(notification));
+      var emailNotification = await _notificationRepository.CreateEmailNotification(notification);
+
+      await _notificationRepository.SaveChanges();
+
+      return Ok(emailNotification);
     }
 
     [HttpPut("{id:guid}")]
-    public ActionResult<Guid> Update_Email(Guid id, EmailNotification notification)
+    public async Task<ActionResult<Guid>> Update_Email(Guid id, EmailNotification notification)
     {
-      return Ok(_notificationRepository.UpdateFromAggregate(notification));
+      var updateFromAggregate = _notificationRepository.UpdateFromAggregate(notification);
+
+      await _notificationRepository.SaveChanges();
+
+      return Ok(updateFromAggregate);
     }
   }
 }

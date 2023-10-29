@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace DeadmanSwitchFailed.Common.Domain.Repositories;
 
-public interface ICreateRepository<T>
+public interface ICreateRepository<T> : IRepositoryBase
 {
   T Create(T entity);
 

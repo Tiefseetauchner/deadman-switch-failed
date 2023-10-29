@@ -1,8 +1,9 @@
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeadmanSwitchFailed.Common.Domain.Repositories;
 
-public abstract class RepositoryBase<T> where T : class
+public abstract class RepositoryBase<T> : IRepositoryBase where T : class
 {
   readonly protected DbContext DbContext;
   readonly protected DbSet<T> DbSet;
@@ -12,4 +13,14 @@ public abstract class RepositoryBase<T> where T : class
     DbContext = dbContext;
     DbSet = dbSet;
   }
+
+  public async Task<int> SaveChanges()
+  {
+    return await DbContext.SaveChangesAsync();
+  }
+}
+
+public interface IRepositoryBase
+{
+  Task<int> SaveChanges();
 }
