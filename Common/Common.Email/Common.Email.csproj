@@ -7,11 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="MailKit" Version="4.2.0" />
+        <PackageReference Include="MailKit" Version="4.2.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Common.ArgumentChecks\Common.ArgumentChecks.csproj" />
+        <ProjectReference Include="..\Common.ArgumentChecks\Common.ArgumentChecks.csproj"/>
     </ItemGroup>
 
 </Project>

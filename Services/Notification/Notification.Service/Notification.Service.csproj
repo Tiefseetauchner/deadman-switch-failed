@@ -10,24 +10,24 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.11" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.11"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.13">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.UnitOfWork" Version="3.1.0" />
-        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.4" />
-        <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
-        <PackageReference Include="Rebus" Version="7.2.1" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.UnitOfWork" Version="3.1.0"/>
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.4"/>
+        <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0"/>
+        <PackageReference Include="Rebus" Version="7.2.1"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Common\Common.Domain\Common.Domain.csproj" />
-        <ProjectReference Include="..\..\..\Common\Common.Email\Common.Email.csproj" />
-        <ProjectReference Include="..\..\..\Common\Common.ServiceBus\Common.ServiceBus.csproj" />
-        <ProjectReference Include="..\Notification.Service.Domain\Notification.Service.Domain.csproj" />
+        <ProjectReference Include="..\..\..\Common\Common.Domain\Common.Domain.csproj"/>
+        <ProjectReference Include="..\..\..\Common\Common.Email\Common.Email.csproj"/>
+        <ProjectReference Include="..\..\..\Common\Common.ServiceBus\Common.ServiceBus.csproj"/>
+        <ProjectReference Include="..\Notification.Service.Domain\Notification.Service.Domain.csproj"/>
     </ItemGroup>
 
 </Project>

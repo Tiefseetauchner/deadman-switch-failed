@@ -1,9 +1,9 @@
-using DeadmanSwitchFailed.Common.Email;
-using MimeKit;
-using Moq;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using DeadmanSwitchFailed.Common.Email;
+using MimeKit;
+using Moq;
 
 namespace Common.Email.Tests.Unit;
 

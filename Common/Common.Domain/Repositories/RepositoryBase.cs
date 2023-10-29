@@ -19,8 +19,3 @@ public abstract class RepositoryBase<T> : IRepositoryBase where T : class
     return await DbContext.SaveChangesAsync();
   }
 }
-
-public interface IRepositoryBase
-{
-  Task<int> SaveChanges();
-}

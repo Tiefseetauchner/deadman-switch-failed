@@ -1,8 +1,8 @@
-using DeadmanSwitchFailed.Common.ArgumentChecks;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text.Json;
+using DeadmanSwitchFailed.Common.ArgumentChecks;
 
 namespace Common.Encryption;
 

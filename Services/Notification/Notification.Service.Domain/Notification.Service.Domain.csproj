@@ -7,17 +7,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Common\Common.Domain\Common.Domain.csproj" />
-        <ProjectReference Include="..\..\..\Common\Common.Email\Common.Email.csproj" />
+        <ProjectReference Include="..\..\..\Common\Common.Domain\Common.Domain.csproj"/>
+        <ProjectReference Include="..\..\..\Common\Common.Email\Common.Email.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.13">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.UnitOfWork" Version="3.1.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.13">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.UnitOfWork" Version="3.1.0"/>
     </ItemGroup>
-    
+
 </Project>

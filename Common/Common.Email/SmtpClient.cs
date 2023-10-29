@@ -1,10 +1,10 @@
-﻿using DeadmanSwitchFailed.Common.ArgumentChecks;
-using MimeKit;
-using System;
+﻿using System;
 using System.Net;
 using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
+using DeadmanSwitchFailed.Common.ArgumentChecks;
+using MimeKit;
 
 namespace DeadmanSwitchFailed.Common.Email
 {
