@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Content Include="..\..\..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Radzen.Blazor" Version="4.19.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\images\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="resources\web.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>web.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="resources\web.de.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>web.de.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="resources\web.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>web.resx</DependentUpon>
+      </Compile>
+      <Compile Update="resources\web.de.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>web.de.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+</Project>

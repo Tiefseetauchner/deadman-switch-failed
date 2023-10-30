@@ -1,0 +1,48 @@
+﻿@inherits LayoutComponentBase
+
+<link rel="stylesheet" href="_content/Radzen.Blazor/css/software.css">
+
+<main>
+    <RadzenLayout>
+        <RadzenHeader>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0">
+                <RadzenSidebarToggle Click="@ToggleSideBar"/>
+                <RadzenText>Deadman switch failed</RadzenText>
+            </RadzenStack>
+        </RadzenHeader>
+
+        <RadzenSidebar Responsive="false" @bind-Expanded="@_sidebarExpanded" style="position: absolute; z-index: 10;">
+            <RadzenPanelMenu>
+                <RadzenPanelMenuItem Text="Home" Icon="home" Path="/"/>
+                <RadzenPanelMenuItem Text="Home" Icon="home" Path="/"/>
+                <RadzenPanelMenuItem
+                    class="rz-mt-2"
+                    Text="Source Code"
+                    Icon="preview"
+                    Target="about:blank"
+                    Path="https://github.com/tiefseetauchner/deadman-switch-failed"/>
+            </RadzenPanelMenu>
+            <RadzenText TextStyle="TextStyle.Subtitle2" class="rz-p-4" style="color: var(--rz-text-contrast-color)">
+                Deadman Switch Failed is an open source project by Tiefseetauchner. Contribute or raise issues at
+                <a href="https://github.com/tiefseetauchner/deadman-switch-failed">the github</a>.
+            </RadzenText>
+        </RadzenSidebar>
+        <RadzenBody>
+            <div class="rz-p-4">
+                @Body
+            </div>
+        </RadzenBody>
+        <RadzenFooter>
+            Footer
+        </RadzenFooter>
+    </RadzenLayout>
+</main>
+
+@code {
+
+    bool _sidebarExpanded = false;
+
+    void ToggleSideBar() =>
+        _sidebarExpanded = !_sidebarExpanded;
+
+}
