@@ -2,9 +2,21 @@ using System;
 
 namespace DeadmanSwitchFailed.Common.Domain;
 
-public abstract class Aggregate<T>
+public abstract class Aggregate<T> : IAggregate
+  where T : IPersistent
 {
-  [NonSerialized] public Guid Id;
+  protected Aggregate(T data)
+  {
+    Data = data;
+  }
+
+  protected Aggregate()
+  {
+  }
 
   [NonSerialized] public T Data;
+
+  public Guid Id => Data.Id;
+
+  public abstract IAggregate FromData(IPersistent data);
 }

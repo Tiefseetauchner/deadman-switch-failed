@@ -1,12 +1,13 @@
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DeadmanSwitchFailed.Common.Domain;
 
-public abstract class Persistent<T>
+public abstract class Persistent<T> : IPersistent
+  where T : IAggregate
 {
-  public Guid Id { get; set; }
+  protected Persistent()
+  {
+  }
 
-  [NotMapped]
-  public abstract T Aggregate { get; set; }
+  public Guid Id { get; set; }
 }

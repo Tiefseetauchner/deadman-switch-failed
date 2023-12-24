@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using DeadmanSwitchFailed.Common.Domain;
 using DeadmanSwitchFailed.Common.Email;
 
 namespace DeadmanSwitchFailed.Services.Notification.Service.Domain.Models;
@@ -37,5 +38,12 @@ public class EmailNotification : Notification
     using var smtpClient = _smtpClientFactory.Create();
 
     await smtpClient.SendAsync(From, To, Cc, Bcc, Subject, Body);
+  }
+
+  public override IAggregate FromData(IPersistent data)
+  {
+    Data = data as PersistentNotification;
+
+    return this;
   }
 }

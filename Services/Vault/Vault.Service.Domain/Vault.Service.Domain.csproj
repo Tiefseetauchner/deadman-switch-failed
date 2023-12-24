@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <RootNamespace>DeadmanSwitchFailed.Services.Vault.Service.Domain</RootNamespace>
+        <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Common\Common.Domain\Common.Domain.csproj" />
+        <ProjectReference Include="..\..\..\Common\Common.Email\Common.Email.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.13" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.13">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+</Project>

@@ -52,7 +52,7 @@ public class NotificationRepository :
       _ => throw new ArgumentOutOfRangeException()
     };
 
-    notification.Id = persistentNotification.Id;
+    notification.Data.Id = persistentNotification.Id;
     notification.VaultId = persistentNotification.VaultId;
 
     return notification;
@@ -69,6 +69,5 @@ public class NotificationRepository :
         _ => throw new ArgumentOutOfRangeException()
       },
       VaultId = notification.VaultId,
-      Aggregate = notification
     };
 }
