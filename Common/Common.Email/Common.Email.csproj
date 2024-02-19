@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <RootNamespace>DeadmanSwitchFailed.Common.Email</RootNamespace>
         <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="MailKit" Version="4.2.0"/>
+        <PackageReference Include="MailKit" Version="4.3.0" />
     </ItemGroup>
 
     <ItemGroup>

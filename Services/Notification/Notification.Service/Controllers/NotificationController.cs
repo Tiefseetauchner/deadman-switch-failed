@@ -18,16 +18,12 @@ namespace DeadmanSwitchFailed.Services.Notification.Service.Controllers
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<ActionResult<EmailNotification>> Get_Notification(Guid id)
-    {
-      return await _unitOfWork.NotificationRepository.GetByIdAsync(id) is { } notification ? Ok(notification) : NotFound();
-    }
+    public async Task<ActionResult<EmailNotification>> Get_Notification(Guid id) =>
+      await _unitOfWork.NotificationRepository.GetByIdAsync(id) is { } notification ? Ok(notification) : NotFound();
 
     [HttpGet("vault/{vaultId:guid}")]
-    public async Task<ActionResult<dynamic>> Get_Notifications_FromVault(Guid vaultId)
-    {
-      return Ok(await _unitOfWork.NotificationRepository.GetNotificationsByVaultIdAsync(vaultId));
-    }
+    public async Task<ActionResult<dynamic>> Get_Notifications_FromVault(Guid vaultId) =>
+      await _unitOfWork.NotificationRepository.GetNotificationsByVaultIdAsync(vaultId) is { } notifications ? Ok(notifications) : NotFound();
 
     [HttpPost("")]
     public async Task<ActionResult<Guid>> Create_EmailNotification(EmailNotification notification)
