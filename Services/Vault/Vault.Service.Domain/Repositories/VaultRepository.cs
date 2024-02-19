@@ -11,11 +11,3 @@ public class VaultRepository : CrudRepository<PersistentVault>, IVaultRepository
   {
   }
 }
-
-public interface IVaultRepository :
-  ICreateRepository<PersistentVault>,
-  IReadRepository<PersistentVault>,
-  IUpdateRepository<PersistentVault>,
-  IDeleteRepository<PersistentVault>
-{
-}
